@@ -125,7 +125,7 @@ function Hero() {
           <h1 className="display hero-title">
             <CharText text="Experience reality" delay={D + 0.3} />
             <span className="serif-accent shimmer hero-title-accent">
-              <CharText text="beyond imagination." delay={D + 0.75} stagger={0.03} />
+              <CharText text="beyond imagination." delay={D + 0.75} stagger={0.03} flat />
             </span>
           </h1>
           <motion.p className="lead hero-lead" initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: D + 1.35, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}>
