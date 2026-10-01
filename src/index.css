@@ -3850,9 +3850,16 @@ select.field-input {
   transform-origin: 50% 100%;
   backface-visibility: hidden;
 }
+.serif-accent .chartext-word {
+  perspective: none;
+}
 .serif-accent .chartext-char {
   background-size: calc(var(--n) * 100%) 100%;
   background-position: calc(var(--i) * 100% / (var(--n) - 1)) 0;
+  backface-visibility: visible;
+  /* room for italic overhang so the gradient isn't clipped */
+  padding-right: 0.06em;
+  margin-right: -0.06em;
 }
 .chip--a {
   left: -4%;
