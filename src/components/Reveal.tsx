@@ -58,8 +58,14 @@ const charV: Variants = {
   show: (d: number) => ({ y: '0%', rotateX: 0, opacity: 1, transition: { duration: 1, delay: d, ease: [0.16, 1, 0.3, 1] } }),
 };
 
-/** Letter-by-letter 3D flip-up reveal; words never break mid-word. Plays on mount. */
-export function CharText({ text, className, delay = 0, stagger = 0.028 }: { text: string; className?: string; delay?: number; stagger?: number }) {
+// 2D rise for gradient (background-clip: text) letters — 3D flips leave paint ghosts there
+const charFlatV: Variants = {
+  hidden: { y: '45%', opacity: 0 },
+  show: (d: number) => ({ y: '0%', opacity: 1, transition: { duration: 0.9, delay: d, ease: [0.16, 1, 0.3, 1] } }),
+};
+
+/** Letter-by-letter 3D flip-up reveal (or a flat rise with `flat`); words never break mid-word. Plays on mount. */
+export function CharText({ text, className, delay = 0, stagger = 0.028, flat = false }: { text: string; className?: string; delay?: number; stagger?: number; flat?: boolean }) {
   let n = 0;
   const total = text.replace(/ /g, '').length;
   return (
@@ -68,7 +74,7 @@ export function CharText({ text, className, delay = 0, stagger = 0.028 }: { text
         <Fragment key={wi}>
           <span className="chartext-word" aria-hidden>
             {[...word].map((ch, ci) => (
-              <motion.span key={ci} className="chartext-char" variants={charV} custom={delay + n * stagger} style={{ ['--i' as string]: n++, ['--n' as string]: total }}>
+              <motion.span key={ci} className="chartext-char" variants={flat ? charFlatV : charV} custom={delay + n * stagger} style={{ ['--i' as string]: n++, ['--n' as string]: total }}>
                 {ch}
               </motion.span>
             ))}
